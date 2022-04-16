@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('partials/header.ejs') %>
+
+<body>
+
+  <%- include('partials/navbar.ejs') %>
+  
+  <div class="section no-pad-bot" id="index-banner">
+    <div class="container">
+
+    </div>
+    <br><br>
+    <h1 class="header center title">
+      ʻ<%= title %>ʼ
+    </h1>
+    <div class="row center">
+      <h5 class="header col s12 light">
+        <%= description %>
+    </div>
+    <br>
+    <hr style="width: 50%;">
+
+  </div>
+  </div>
+
+
+  <div class="container">
+    <br>
+    <ul class="collapsible">
+      <li>
+        <div class="collapsible-header"><i class="material-icons fa-brands fa-ethereum"></i>Ethereum</div>
+        <div class="collapsible-body"><span>Adress: <p class="copy">0xd84DF282D3FD1108EEa3027e8Acd6D4983077b86</p>
+            </span></div>
+      </li>
+      <li>
+        <div class="collapsible-header"><i class="material-icons fa-brands fa-paypal"></i>PayPal</div>
+        <div class="collapsible-body"><span>Paypal Adress: <p class="copy">
+                <a href="https://www.paypal.me/MDCDEV" target="_blank">paypal.me/MDCDEV</a>
+              </p>
+            </span></div>
+      </li>
+      <li>
+        <div class="collapsible-header"><i class="material-icons fa-solid fa-circle-dollar-to-slot"></i>Donate Bot</div>
+        <div class="collapsible-body"><span>Donate Bot Adress: <p class="copy">
+                <a href="https://donatebot.io/checkout/733857225873031238" target="_blank">donatebot.io</a>
+              </p>
+            </span></div>
+      </li>
+    </ul>
+
+  </div>
+
+  <%- include('partials/footer.ejs') %>
+
+  <script src="js/error.js"></script>
+
+</body>
+
+</body>
+
+</html>
