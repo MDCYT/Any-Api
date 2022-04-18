@@ -1,27 +1,32 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
-const fs = require('fs');
+const fs = require("fs");
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  const bears = fs.readdirSync('./public/img/bear');
+router.get("/", function (req, res, next) {
+  const bears = fs.readdirSync("./public/img/bear");
   let bear = bears[Math.floor(Math.random() * bears.length)];
 
-  bear = 'img/bear/' + bear;
+  bear = "img/bear/" + bear;
 
-  const dogs = fs.readdirSync('./public/img/dog');
+  const dogs = fs.readdirSync("./public/img/dog");
   let dog = dogs[Math.floor(Math.random() * dogs.length)];
 
-  dog = 'img/dog/' + dog;
+  dog = "img/dog/" + dog;
 
-  const cats = fs.readdirSync('./public/img/cat');
+  const cats = fs.readdirSync("./public/img/cat");
   let cat = cats[Math.floor(Math.random() * cats.length)];
-  
-  cat = 'img/cat/' + cat;
-  
 
+  cat = "img/cat/" + cat;
 
-  res.render('index', { title: 'Any Api', description: "Any Api, the best API for your needs", keywords: "Any Api, API, API's, API's for your needs", bear, dog, cat });
+  res.render("index", {
+    title: "Any Api",
+    description: "Any Api, the best API for your needs",
+    keywords: "Any Api, API, API's, API's for your needs",
+    bear,
+    dog,
+    cat,
+  });
 });
 
 module.exports = router;

@@ -8,7 +8,7 @@ const app = express();
 global.__basedir = __dirname;
 
 const db = require("./utils/db");
-global.db = db
+global.db = db;
 
 const schedule = require("node-schedule");
 
@@ -21,7 +21,7 @@ const date =
 const row = db.petitions.selectToday.get(date);
 if (!row) {
   //Create a table with all petitions for every day
-  db.petitions.insertRow.run(date, 0)
+  db.petitions.insertRow.run(date, 0);
 }
 
 //Every day at midnight, create a new table for the next day
@@ -36,7 +36,7 @@ schedule.scheduleJob("0 0 0 * * *", function () {
   //If the date is not in the database, insert it
   if (!newrow) {
     //Create a table with all petitions for every day
-    db.petitions.insertRow.run(date, 0)
+    db.petitions.insertRow.run(date, 0);
   }
 });
 
@@ -50,7 +50,7 @@ global.__basedir = __dirname;
 //Read the router file
 const routes = require("./utils/router");
 for (const route in routes) {
-    app.use(routes[route]);
+  app.use(routes[route]);
 }
 
 //Home page
@@ -71,14 +71,14 @@ app.use(function (req, res, next) {
   next(createError(404));
 });
 
- // error handler
- app.use(function (err, req, res, next) {
-     // set locals, only providing error in development
-     res.locals.message = err.message;
-     res.locals.error = req.app.get('env') === 'development' ? err : {},
-     // render the error page
-     res.status(err.status || 500);
-     res.render('error');
- });
+// error handler
+app.use(function (err, req, res, next) {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  (res.locals.error = req.app.get("env") === "development" ? err : {}),
+    // render the error page
+    res.status(err.status || 500);
+  res.render("error");
+});
 
 module.exports = app;
