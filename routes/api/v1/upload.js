@@ -5,23 +5,25 @@ const https = require("https");
 const fs = require("fs");
 const path = require("path");
 
+const db = require("../../../utils/db.js");
+
 /* Post home page. */
 router.post("/api/v1/upload", function (req, res, next) {
-
   try {
-
     const { name, url, id } = req.query;
 
     if (!name || !url || !id) {
       res.json({
-        message: "Missing parameters"
+        message: "Missing parameters",
       });
       return;
     }
 
     const rename = `${id}_${name}`;
 
-    const file = fs.createWriteStream(path.join(__basedir, "public/img/uploads", rename));
+    const file = fs.createWriteStream(
+      path.join(__basedir, "public/img/uploads", rename)
+    );
     https.get(url, function (response) {
       response.pipe(file);
 
@@ -34,9 +36,8 @@ router.post("/api/v1/upload", function (req, res, next) {
     res.status(200).json({
       message: "File uploaded",
       name: rename,
-      url: `https://${req.headers.host}/img/uploads/${rename}`
+      url: `https://${req.headers.host}/img/uploads/${rename}`,
     });
-
 
     db.petitions.addPetition.run(date);
   } catch (err) {
