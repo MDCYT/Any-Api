@@ -8,12 +8,11 @@ const path = require("path");
 /* Post home page. */
 router.post("/api/v1/upload", function (req, res, next) {
   try {
-
-    console.log(req.headers);
-    console.log(process.env.API_KEY);
-
     //Check if in the header are a API_KEY and if it is correct
-    if (req.headers.API_KEY !== process.env.API_KEY) {
+    if (
+      req.headers.api_key !== process.env.API_KEY ||
+      req.headers.API_KEY !== process.env.API_KEY
+    ) {
       res.status(401).json({
         message: "Unauthorized",
         status: 401,
@@ -29,7 +28,6 @@ router.post("/api/v1/upload", function (req, res, next) {
       });
       return;
     }
-
 
     const rename = `${id}_${name}`;
 
@@ -77,7 +75,6 @@ router.post("/api/v1/upload", function (req, res, next) {
         });
       });
     });
-
 
     res.status(200).json({
       message: "File uploaded",
