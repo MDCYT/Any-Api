@@ -27,9 +27,7 @@ router.get("/api/v1/fliptext", function (req, res, next) {
     });
 
     //Insert a new petition
-    db.petitions.addPetition.run(date);
   } catch (err) {
-    db.petitions.addInvalidPetition.run(date);
 
     console.log(err);
     res.status(500).json({

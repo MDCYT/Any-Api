@@ -43,10 +43,8 @@ router.get("/api/v1/bear", function (req, res, next) {
     });
 
     //Insert a new petition
-    db.petitions.addPetition.run(date);
   } catch (err) {
     console.log(err);
-    db.petitions.addInvalidPetition.run(date);
     res.status(500).json({
       message: "Internal Server Error",
       status: 500,

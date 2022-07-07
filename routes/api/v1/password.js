@@ -34,9 +34,7 @@ router.get("/api/v1/password", function (req, res, next) {
       status: 200,
     });
     //Insert a new petition
-    db.petitions.addPetition.run(date);
   } catch (err) {
-    db.petitions.addInvalidPetition.run(date);
 
     console.log(err);
     res.status(500).json({

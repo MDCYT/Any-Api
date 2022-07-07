@@ -17,11 +17,8 @@ router.get("/api/v1/coinflip", function (req, res, next) {
     });
 
     //Insert a new petition
-    db.petitions.addPetition.run(date);
   } catch (err) {
-    db.petitions.addInvalidPetition.run(date);
 
-    console.log(err);
     res.status(500).json({
       message: "Internal Server Error",
       status: 500,

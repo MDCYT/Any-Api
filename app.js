@@ -7,38 +7,9 @@ const fs = require("fs");
 const app = express();
 global.__basedir = __dirname;
 
-const db = require("./utils/db");
-global.db = db;
-
-const schedule = require("node-schedule");
 
 const Day = new Date();
 //Obtain the date in the format YYYY-MM-DD
-const date =
-  Day.getFullYear() + "-" + (Day.getMonth() + 1) + "-" + Day.getDate();
-
-//Check if the date is already in the database
-const row = db.petitions.selectToday.get(date);
-if (!row) {
-  //Create a table with all petitions for every day
-  db.petitions.insertRow.run(date, 0);
-}
-
-//Every day at midnight, create a new table for the next day
-schedule.scheduleJob("0 0 0 * * *", function () {
-  const Day = new Date();
-  //Obtain the date in the format YYYY-MM-DD
-  const date =
-    Day.getFullYear() + "-" + (Day.getMonth() + 1) + "-" + (Day.getDate() + 1);
-
-  //Check if the date is already in the database
-  const newrow = db.petitions.selectToday.get(date);
-  //If the date is not in the database, insert it
-  if (!newrow) {
-    //Create a table with all petitions for every day
-    db.petitions.insertRow.run(date, 0);
-  }
-});
 
 require("@babel/core").transform("code", {
   presets: ["@babel/preset-env"],

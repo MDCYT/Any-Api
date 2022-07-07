@@ -9,7 +9,6 @@ router.get('/api/v1/decodebase64', function(req, res, next) {
     try{
         let text = req.query.text;
         if(!text) {
-            db.petitions.addInvalidPetition.run(date);
             res.status(400).json({
                 message: "Bad Request",
                 status: 400,
@@ -28,11 +27,8 @@ router.get('/api/v1/decodebase64', function(req, res, next) {
         });
 
             //Insert a new petition
-    db.petitions.addPetition.run(date);
 
 } catch(err) {
-    console.log(err);
-    db.petitions.addInvalidPetition.run(date);
     res.status(500).json({
         message: "Internal Server Error",
         status: 500
