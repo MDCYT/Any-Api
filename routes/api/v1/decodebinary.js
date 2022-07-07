@@ -21,8 +21,8 @@ router.get('/api/v1/decodebinary', function(req, res, next) {
         ).join("");
         res.status(200).json({
             message: "OK",
-            text,
-            binary,
+            text: binary,
+            binary: text,
             status: 200
         });
 

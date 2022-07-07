@@ -21,8 +21,8 @@ router.get('/api/v1/decodebase64', function(req, res, next) {
         let base64 = Buffer.from(text, "base64").toString("ascii");
         res.status(200).json({
             message: "OK",
-            text,
-            base64,
+            text: base64,
+            base64: text,
             status: 200
         });
 

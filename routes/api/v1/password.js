@@ -3,9 +3,6 @@ var router = express.Router();
 
 /* GET home page. */
 router.get("/api/v1/password", function (req, res, next) {
-  const Day = new Date();
-  const date =
-    Day.getFullYear() + "-" + (Day.getMonth() + 1) + "-" + Day.getDate();
   try {
     let length = req.query.length;
     let note;

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <%- include('partials/header.ejs') %>
+<%- include('partials/header.ejs') %>
 
 
 <body>
@@ -52,7 +52,8 @@
             </div>
             <div class="card-action">
               <a href="/api/v1/dog">Route</a>
-              <a href="#">Documentation</a>
+              <a href="https://docs.api.any-bot.tech/reference/api-reference/animals#get-dog"
+                target="_blank">Documentation</a>
             </div>
           </div>
         </div>
@@ -68,7 +69,8 @@
             </div>
             <div class="card-action">
               <a href="/api/v1/cat">Route</a>
-              <a href="#">Documentation</a>
+              <a href="https://docs.api.any-bot.tech/reference/api-reference/animals#get-cat"
+                target="_blank">Documentation</a>
             </div>
           </div>
         </div>
@@ -84,7 +86,8 @@
             </div>
             <div class="card-action">
               <a href="/api/v1/bear">Route</a>
-              <a href="#">Documentation</a>
+              <a href="https://docs.api.any-bot.tech/reference/api-reference/animals#get-bear"
+                target="_blank">Documentation</a>
             </div>
           </div>
         </div>
@@ -94,15 +97,16 @@
         <div class="col s12 m4">
           <div class="card blue-grey darken-1">
             <div class="card-image">
-              <img src="img/bear/1.jpg" alt="Bear Image">
+              <img src="<%= bird %>" alt="Bird Image">
               <span class="card-title"><b>Bird</b></span>
             </div>
             <div class="card-content white-text">
               <p>Show a random bird image</p>
             </div>
             <div class="card-action">
-              <a href="#">Route</a>
-              <a href="#">Documentation</a>
+              <a href="/api/v1/bird">Route</a>
+              <a href="https://docs.api.any-bot.tech/reference/api-reference/animals#get-bird"
+                target="_blank">Documentation</a>
             </div>
           </div>
         </div>
@@ -117,8 +121,9 @@
               <p>Show a random fox image</p>
             </div>
             <div class="card-action">
-              <a href="#">Route</a>
-              <a href="#">Documentation</a>
+              <a href="/api/v1/fox">Route</a>
+              <a href="https://docs.api.any-bot.tech/reference/api-reference/animals#get-fox"
+                target="_blank">Documentation</a>
             </div>
           </div>
         </div>
@@ -133,8 +138,9 @@
               <p>Show a random koala image</p>
             </div>
             <div class="card-action">
-              <a href="#">Route</a>
-              <a href="#">Documentation</a>
+              <a href="/api/v1/koala">Route</a>
+              <a href="https://docs.api.any-bot.tech/reference/api-reference/animals#get-koala"
+                target="_blank">Documentation</a>
             </div>
           </div>
         </div>
@@ -157,8 +163,9 @@
               <p>Show a random wink gif</p>
             </div>
             <div class="card-action">
-              <a href="#">Route</a>
-              <a href="#">Documentation</a>
+              <a href="/api/v1/wink">Route</a>
+              <a href="https://docs.api.any-bot.tech/reference/api-reference/anime#wink"
+                target="_blank">Documentation</a>
             </div>
           </div>
         </div>
@@ -173,8 +180,9 @@
               <p>Show a random pat gif</p>
             </div>
             <div class="card-action">
-              <a href="#">Route</a>
-              <a href="#">Documentation</a>
+              <a href="/api/v1/pat">Route</a>
+              <a href="https://docs.api.any-bot.tech/reference/api-reference/anime#pat"
+                target="_blank">Documentation</a>
             </div>
           </div>
         </div>
@@ -189,8 +197,9 @@
               <p>Show a random hug gif</p>
             </div>
             <div class="card-action">
-              <a href="#">Route</a>
-              <a href="#">Documentation</a>
+              <a href="/api/v1/hug">Route</a>
+              <a href="https://docs.api.any-bot.tech/reference/api-reference/anime#hug"
+                target="_blank">Documentation</a>
             </div>
           </div>
         </div>
@@ -201,7 +210,7 @@
     <div class="section others">
 
       <!--   Icon Section   -->
-      <h5 class="center" id="others">Others</h5>
+      <h5 class="center" id="others">Utils</h5>
       <hr style="width: 50%; opacity:20%;">
       <div class="row">
         <div class="col s12 m4">
@@ -211,40 +220,80 @@
               <p>Return your text flipped</p>
             </div>
             <div class="card-action">
-              <a href="/api/v1/flixtext?text=Hello%20World">Route</a>
-              <a href="#">Documentation</a>
+              <a href="/api/v1/fliptext?text=Hello%20World">Route</a>
+              <a href="https://docs.api.any-bot.tech/reference/api-reference/utils#flip-text"
+                target="_blank">Documentation</a>
             </div>
           </div>
         </div>
 
         <div class="col s12 m4">
           <div class="card blue-grey darken-1">
-            <div class="card-image">
-              <img src="img/bear/1.jpg" alt="Bear Image">
-              <span class="card-title"><b>Pat</b></span>
-            </div>
             <div class="card-content white-text">
-              <p>Show a random pat gif</p>
+              <span class="card-title"><b>Base64</b></span>
+              <p>Return your text encoded or decoded in base64</p>
             </div>
             <div class="card-action">
-              <a href="#">Route</a>
-              <a href="#">Documentation</a>
+              <a href="/api/v1/base64?text=Hello%20World">Route</a>
+              <a href="https://docs.api.any-bot.tech/reference/api-reference/utils#base64"
+                target="_blank">Documentation</a>
             </div>
           </div>
         </div>
 
         <div class="col s12 m4">
           <div class="card blue-grey darken-1">
-            <div class="card-image">
-              <img src="<%= bear %>" alt="Bear Image">
-              <span class="card-title"><b>Hug</b></span>
-            </div>
             <div class="card-content white-text">
-              <p>Show a random hug gif</p>
+              <span class="card-title"><b>Binary</b></span>
+              <p>Return your text encoded or decoded in binary</p>
             </div>
             <div class="card-action">
-              <a href="#">Route</a>
-              <a href="#">Documentation</a>
+              <a href="/api/v1/binary?text=Hello%20World">Route</a>
+              <a href="https://docs.api.any-bot.tech/reference/api-reference/utils#binary"
+                target="_blank">Documentation</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s12 m4">
+          <div class="card blue-grey darken-1 ">
+            <div class="card-content white-text">
+              <span class="card-title"><b>Coin Flip</b></span>
+              <p>Return a random side of a coin</p>
+            </div>
+            <div class="card-action">
+              <a href="/api/v1/coinflip">Route</a>
+              <a href="https://docs.api.any-bot.tech/reference/api-reference/utils#coin-flip"
+                target="_blank">Documentation</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col s12 m4">
+          <div class="card blue-grey darken-1">
+            <div class="card-content white-text">
+              <span class="card-title"><b>Password</b></span>
+              <p>Return a random password</p>
+            </div>
+            <div class="card-action">
+              <a href="/api/v1/password">Route</a>
+              <a href="https://docs.api.any-bot.tech/reference/api-reference/utils#password"
+                target="_blank">Documentation</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col s12 m4">
+          <div class="card blue-grey darken-1">
+            <div class="card-content white-text">
+              <span class="card-title"><b>Upload</b></span>
+              <p>Upload a file from a URL (API Key required)</p>
+            </div>
+            <div class="card-action">
+              <a href="https://docs.api.any-bot.tech/reference/api-reference/utils#upload"
+                target="_blank">Documentation</a>
             </div>
           </div>
         </div>

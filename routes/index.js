@@ -19,6 +19,11 @@ router.get("/", function (req, res, next) {
 
   cat = "img/cat/" + cat;
 
+  const birds = fs.readdirSync("./public/img/bird");
+  let bird = birds[Math.floor(Math.random() * birds.length)];
+
+  bird = "img/bird/" + bird;
+
   res.render("index", {
     title: "Any Api",
     description: "Any Api, the best API for your needs",
@@ -26,6 +31,7 @@ router.get("/", function (req, res, next) {
     bear,
     dog,
     cat,
+    bird
   });
 });
 
