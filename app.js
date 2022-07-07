@@ -3,12 +3,9 @@ const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
-const fs = require("fs");
 const app = express();
 global.__basedir = __dirname;
 
-
-const Day = new Date();
 //Obtain the date in the format YYYY-MM-DD
 
 require("@babel/core").transform("code", {
