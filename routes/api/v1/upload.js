@@ -10,7 +10,7 @@ router.post("/api/v1/upload", function (req, res, next) {
   try {
     //Check if in the header are a API_KEY and if it is correct
     if (
-      req.headers.api_key !== process.env.API_KEY ||
+      req.headers.api_key !== process.env.API_KEY &&
       req.headers.API_KEY !== process.env.API_KEY
     ) {
       res.status(401).json({
