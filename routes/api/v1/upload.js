@@ -9,7 +9,7 @@ const path = require("path");
 router.post("/api/v1/upload", function (req, res, next) {
   try {
 
-    console.log(req.headers.API_KEY);
+    console.log(req.headers);
     console.log(process.env.API_KEY);
 
     //Check if in the header are a API_KEY and if it is correct
