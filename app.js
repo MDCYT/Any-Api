@@ -5,6 +5,7 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const app = express();
 global.__basedir = __dirname;
+require("dotenv").config();
 
 //Obtain the date in the format YYYY-MM-DD
 
