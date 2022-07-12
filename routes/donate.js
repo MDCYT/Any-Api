@@ -8,8 +8,9 @@ router.get("/donate", function (req, res, next) {
     .render("donate", {
       title: "Donate",
       description: "Help us to keep our website up and running!",
-      keywords:
-        "donate, help, help us, help us keep our website up and running, any api, api, api's, api's for your needs, Any Bot",
+      keywords: "donate, help, help us, help us keep our website up and running, any api, api, api's, api's for your needs, Any Bot",
+      host: req.headers.host,
+      protocol: req.protocol,
     });
 });
 
