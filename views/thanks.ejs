@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('partials/header.ejs') %>
+
+
+<body>
+
+    <%- include('partials/navbar.ejs') %>
+
+    <div class="section no-pad-bot" id="index-banner">
+
+        <br><br>
+        <h1 class="header center title">
+            ʻ<%= title %>ʼ
+        </h1>
+        <div class="row center">
+            <h5 class="header col s12 light">
+                <%= description %>
+        </div>
+        <br>
+        <hr style="width: 50%;">
+
+    </div>
+
+    <div class="section no-pad-bot" id="index-banner">
+
+
+        <div class="row center">
+            <h2 class="header col s12 light">
+                THANKS FOR YOUR PURCHASE!
+            </h2>
+
+            <h4 class="header col s12 light">
+                Your API key is: <%= apiKey %>
+            </h4>
+
+            <h4 class="header col s12 light">
+                For reset your API key, visit <a href="<%= protocol %>://<%= host %>/reset-api-key">here</a>
+            </h4>
+
+        </div>
+
+    </div>
+
+
+
+
+    <%- include('partials/footer.ejs') %>
+
+</body>
+
+
+
+
+</html>

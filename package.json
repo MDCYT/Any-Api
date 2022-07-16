@@ -13,9 +13,13 @@
     "dotenv": "^16.0.1",
     "ejs": "~2.6.1",
     "express": "~4.16.1",
+    "express-rate-limit": "^6.4.0",
     "http-errors": "~1.6.3",
+    "moongose": "^1.0.0",
     "morgan": "~1.9.1",
-    "sass": "^1.49.9"
+    "paypal-rest-sdk": "^1.8.1",
+    "sass": "^1.49.9",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@babel/core": "^7.17.5",

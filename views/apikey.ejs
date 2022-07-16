@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('partials/header.ejs') %>
+
+
+<body>
+
+    <%- include('partials/navbar.ejs') %>
+
+    <div class="section no-pad-bot" id="index-banner">
+        <div class="container">
+
+        </div>
+        <br><br>
+        <h1 class="header center title">
+            ʻ<%= title %>ʼ
+        </h1>
+        <div class="row center">
+            <h5 class="header col s12 light">
+                <%= description %>
+        </div>
+        <br>
+        <hr style="width: 50%;">
+
+    </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <form action="/api/key/new" method="POST">
+                                    <div class="form-group">
+                                        <label for="nameproject">Name Of Project</label>
+                                        <input type="text" class="form-control" id="nameproject" name="nameproject"
+                                            placeholder="Any Bot">
+                                    </div>
+                                    <div class="input-field">
+                                        <select name="projectid" id="projectid">
+                                            <option value="" disabled selected>Choose your option</option>
+                                            <% projects.forEach(function(project) { %>
+                                            <option value="<%= project.id %>"><%= project.name %></option>
+                                            <% }); %>
+                                        </select>
+                                        <label>Project</label>
+                                    </div>
+                                    <div class="input-field">
+                                        <select name="tier" id="tier">
+                                            <option value="" disabled selected>Choose your tier</option>
+                                            <% tiers.forEach(function(tier) { %>
+                                            <option value="<%= tier.id %>"><%= tier.name %> - <%= tier.price %></option>
+                                            <% }); %>
+                                        </select>
+                                        <label>Tier</label>
+                                        <small id="tier-help" class="form-text text-muted">
+                                            You can change the tier later, for information about the tiers, please visit
+                                            the <a href="<%= protocol %>://<%= host %>/pricing">Pricing</a> page.
+                                        </small>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Email address</label>
+                                        <input type="email" class="form-control" id="inputEmail"
+                                            aria-describedby="emailHelp" placeholder="name@email.com">
+                                        <small id="emailHelp" class="form-text text-muted">We'll never share your email
+                                            with anyone else.</small>
+                                    </div>
+                                </form>
+
+                                <br>
+
+                                <br>
+
+                                <!-- Button center -->
+                                <button type="submit" id="submit" class="center-align btn btn-primary tooltipped"
+                                    data-position="bottom"
+                                    data-tooltip="You can only make one free API key per email">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include('partials/footer.ejs') %>
+
+    <script src="js/apikey.js"></script>
+
+</body>
+
+
+
+
+</html>

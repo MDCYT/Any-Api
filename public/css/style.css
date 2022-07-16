@@ -29,6 +29,10 @@
   padding-bottom: 7px;
 }
 
+.title-fontfamily{
+  font-family: "test";
+}
+
 .navbar {
   background-image: radial-gradient(#0db2ff 20%, transparent 20%), radial-gradient(#0db2ff 20%, transparent 20%);
   background-color: #03A9F4;

@@ -1,12 +1,40 @@
 var express = require("express");
 var router = express.Router();
 const fs = require("fs");
+const rateLimit = require("express-rate-limit");
+const { join } = require("path");
+const { APIKeys } = require(join(__basedir, "utils", "db"));
 
-/* GET home page. */
-router.get("/api/v1/bird", function (req, res, next) {
-  const Day = new Date();
-  const date =
-    Day.getFullYear() + "-" + (Day.getMonth() + 1) + "-" + Day.getDate();
+const limiter = rateLimit({
+  windowMs: 1 * 60 * 1000, // 1 minute
+  max: async (request, response) => {
+    if (request.headers.api_key) {
+      const tier = await APIKeys.checkTier(request.headers.api_key);
+      switch (tier) {
+        case 0:
+          return 30;
+        case 1:
+          return 120;
+        case 2:
+          return 360;
+        case 3:
+          return 920;
+        default:
+          return 30;
+      }
+    }
+    return 30;
+  },
+  message: {
+    error: "You have exceeded the rate limit",
+    status: 429,
+  },
+  standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+  legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+});
+
+/* GET bird fact and image. */
+router.get("/api/v1/bird", limiter, function (req, res, next) {
   try {
     let avalible_options = ["fact", "image", "both"];
     let option = req.query.option;
