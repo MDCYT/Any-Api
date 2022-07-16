@@ -12,7 +12,7 @@ router.get("/thanks", function (req, res, next) {
         keywords: "donate, help, help us, help us keep our website up and running, any api, api, api's, api's for your needs, Any Bot",
         host: req.headers.host,
         protocol: req.protocol,
-        apiKey: req.query.apiKey,
+        apikey: yeah
     })
 })
 
