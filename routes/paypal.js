@@ -5,9 +5,9 @@ const {
   PAYPAL_URL,
   PAYPAL_CLIENT_ID,
   PAYPAL_CLIENT_SECRET,
-  BASIC_PLAN_ID,
-  PRO_PLAN_ID,
-  ENTERPRISE_PLAN_ID,
+  PAYPAL_BASIC_PLAN_ID,
+  PAYPAL_PRO_PLAN_ID,
+  PAYPAL_ENTERPRISE_PLAN_ID,
 } = process.env;
 
 router.get("/buy", async function (req, res, next) {
@@ -34,11 +34,11 @@ router.get("/buy", async function (req, res, next) {
   let plan_id;
 
   if (price === "Basic") {
-    plan_id = BASIC_PLAN_ID;
+    plan_id = PAYPAL_BASIC_PLAN_ID;
   } else if (price === "Pro") {
-    plan_id = PRO_PLAN_ID;
+    plan_id = PAYPAL_PRO_PLAN_ID;
   } else if (price === "Enterprise") {
-    plan_id = ENTERPRISE_PLAN_ID;
+    plan_id = PAYPAL_ENTERPRISE_PLAN_ID;
   }
 
   const order = {
