@@ -2,7 +2,7 @@ var express = require("express");
 var router = express.Router();
 
 /* GET users listing. */
-router.get("/apikey", function (req, res, next) {
+router.get("/get-apikey", function (req, res, next) {
   res
     .status(200)
     .render("apikey", {
@@ -55,13 +55,13 @@ router.get("/apikey", function (req, res, next) {
         {
           id: "pro",
           name: "Pro",
-          price: "4.99$ / month",
+          price: "6.99$ / month",
           description: "Pro"
         },
         {
           id: "enterprise",
           name: "Enterprise",
-          price: "9.99$ / month",
+          price: "14.99$ / month",
           description: "Enterprise"
         }
 

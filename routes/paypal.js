@@ -33,6 +33,8 @@ router.get("/buy", async function (req, res, next) {
 
   let plan_id;
 
+  console.log(price);
+
   if (price === "Basic") {
     plan_id = PAYPAL_BASIC_PLAN_ID;
   } else if (price === "Pro") {
@@ -96,5 +98,9 @@ router.get("/buy", async function (req, res, next) {
 
   res.redirect(response.links[0].href);
 });
+
+router.get("/cancel", function (req, res, next) {
+  res.status(302).redirect("/");
+})
 
 module.exports = router;
