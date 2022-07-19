@@ -1,86 +1,100 @@
 var express = require("express");
 var router = express.Router();
-const { join } = require("path");
-const { APIKeys } = require(join(__basedir, "utils", "db"));
+const axios = require("axios");
+const {
+  PAYPAL_URL,
+  PAYPAL_CLIENT_ID,
+  PAYPAL_CLIENT_SECRET,
+  BASIC_PLAN_ID,
+  PRO_PLAN_ID,
+  ENTERPRISE_PLAN_ID,
+} = process.env;
 
-const paypal = require("paypal-rest-sdk");
+router.get("/buy", async function (req, res, next) {
+  let { name, email, price, project } = req.query;
+  let date = new Date();
+  //the date add one day to the current date
+  date = new Date(date.setDate(date.getDate() + 1));
+  //convert to 2018-11-01T00:00:00Z format, if is one digit add 0 before
+  let dateString = `${date.getFullYear()}-${
+    date.getMonth() + 1 < 10
+      ? "0" + (date.getMonth() + 1)
+      : date.getMonth() + 1
+  }-${date.getDate() < 10 ? "0" + date.getDate() : date.getDate()}T${
+    date.getHours() < 10 ? "0" + date.getHours() : date.getHours()
+  }:${date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes()}:${
+    date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds()
+  }Z`;
 
-paypal.configure({
-  mode: "live", //sandbox or live
-  client_id: process.env.PAYPAL_CLIENT_ID,
-  client_secret: process.env.PAYPAL_CLIENT_SECRET,
-});
+  const name_url = encodeURIComponent(name);
+  const email_url = encodeURIComponent(email);
+  const price_url = encodeURIComponent(price);
+  const project_url = encodeURIComponent(project);
 
-router.post("/api/payment/paypal", function (req, res, next) {
-  const { paymentId, payerId, name, price, typeOfProject, email } = req.body;
+  let plan_id;
 
-  //Check if paymentId and payerId are not empty
-  if (paymentId === "" || payerId === "") {
-    res.status(400).json({
-      message: "Bad Request",
-      status: 400,
-      error: "paymentId and payerId are required",
-      example: "paymentId and payerId",
-    });
-    return;
+  if (price === "Basic") {
+    plan_id = BASIC_PLAN_ID;
+  } else if (price === "Pro") {
+    plan_id = PRO_PLAN_ID;
+  } else if (price === "Enterprise") {
+    plan_id = ENTERPRISE_PLAN_ID;
   }
 
-  //Check if exist the paymentId in Paypal
-  paypal.payment.get(paymentId, function (error, payment) {
-    if (error) {
-      res.status(500).json({
-        message: "Internal Server Error",
-        status: 500,
-        error: "Error in the request to Paypal",
-        example: "paymentId",
-      });
-      return;
-    }
+  const order = {
+    plan_id: plan_id,
+    start_time: dateString,
+    quantity: 1,
 
-    //Check if the payment is approved
-    if (payment.state !== "approved") {
-      res.status(400).json({
-        message: "Bad Request",
-        status: 400,
-        error: "The payment is not approved",
-        example: "paymentId",
-      });
-      return;
-    }
+    application_context: {
+      shipping_preference: "NO_SHIPPING",
+      payee_preferred: "IMMEDIATE_PAYMENT_REQUIRED",
+      user_action: "SUBSCRIBE_NOW",
+      brand_name: "Any API",
+      landing_page: "LOGIN",
+      return_url: req.protocol + "://" + req.headers.host + "/thanks?name=" + name_url + "&email=" + email_url + "&price=" + price_url + "&project=" + project_url,
+      cancel_url: req.protocol + "://" + req.headers.host + "/cancel",
+    },
+  };
 
-    //Check if the payment is made by the same payerId
-    if (
-      payment.transactions[0].related_resources[0].sale.payer.payer_info
-        .payer_id !== payerId
-    ) {
-      res.status(400).json({
-        message: "Bad Request",
-        status: 400,
-        error: "The payment is not made by the same payerId",
-        example: "paymentId",
-      });
-      return;
-    }
-
-    let tier = price.toLowerCase();
-    //If the payment is approved, create a new API Key
-    const apiKey = APIKeys.create({
-      name: name,
-      tier: tier,
-      project: typeOfProject,
-      email: email,
+  const token = await axios
+    .post(
+      PAYPAL_URL + "/v1/oauth2/token",
+      "grant_type=client_credentials",
+      {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        auth: {
+          username: PAYPAL_CLIENT_ID,
+          password: PAYPAL_CLIENT_SECRET,
+        },
+      }
+    )
+    .then((response) => {
+      return response.data.access_token;
+    })
+    .catch((error) => {
+      console.log(error);
     });
 
-    //If the API Key is created, send the API Key to the client
-    if (apiKey) res.status(200).redirect("/thanks?yeah=" + apiKey);
-    //If the API Key is not created, send an error to the client
-    else {
-      res.status(500).render("error", {
-        error:
-          "Error in the request to Paypal, please contact us https://discord.gg/5UyuwbNu8j",
-      });
+  const response = await axios.post(
+    `${PAYPAL_URL}/v1/billing/subscriptions`,
+    order,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
     }
-  });
+  ).then((response) => {
+    return response.data;
+  }
+  ).catch((error) => {
+    console.log(error.response.data);
+  })
+
+  res.redirect(response.links[0].href);
 });
 
 module.exports = router;

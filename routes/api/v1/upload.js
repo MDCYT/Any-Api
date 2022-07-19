@@ -82,7 +82,6 @@ router.post("/api/v1/upload", limiter, function (req, res, next) {
       response.pipe(file);
       file.on("finish", function () {
         file.close();
-        console.log("File downloaded");
       });
     });
 
@@ -97,7 +96,6 @@ router.post("/api/v1/upload", limiter, function (req, res, next) {
         const filePath = path.join(__basedir, `public/uploads/${file}`);
         fs.stat(filePath, (err, stats) => {
           if (err) {
-            console.log(err);
             return;
           }
 
@@ -109,10 +107,8 @@ router.post("/api/v1/upload", limiter, function (req, res, next) {
           if (diffDays > 7) {
             fs.unlink(filePath, (err) => {
               if (err) {
-                console.log(err);
                 return;
               }
-              console.log(`${file} was deleted`);
             });
           }
         });

@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { v4: uuidv4, v4 } = require("uuid");
+const { v4: uuidv4 } = require("uuid");
 
 // Create a Database for the API Keys
 // The API Keys are stored in a MongoDB database
@@ -47,6 +47,10 @@ const ApiKey = new mongoose.model(
         type: String,
         required: true,
       },
+      paymentId: {
+        type: String,
+        required: false,
+      },
       timestamp: {
         created: {
           type: Date,
@@ -69,25 +73,51 @@ const ApiKey = new mongoose.model(
 );
 
 module.exports = {
-  async createAPIKey({
-    name, project, tier, email
-  }) {
+  async createAPIKey({ name, project, tier, email, paymentId }) {
     // Create a new API Key
     //If the user is not found, return an error
     //If the project is not found, return an error
     //If the tier is not found, set the tier to free
 
-    const Key = v4();
+    if (!paymentId) {
+      if (tier === "free") {
+        paymentId = "free";
+      } else {
+        return {
+          error: "Payment ID is required",
+        };
+      }
+    } else {
+      const ApiKeys = await this.getByPaymentId(paymentId);
+      if (ApiKeys.length > 0) {
+        //Check if the all information is correct
+        if (
+          ApiKeys[0].name === name &&
+          ApiKeys[0].project === project &&
+          ApiKeys[0].tier === tier &&
+          ApiKeys[0].email === email
+        ) {
+          return ApiKeys[0];
+        } else {
+          return {
+            error: "Payment ID is already in use",
+          };
+        }
+      } else {
+        const apiKey = await ApiKey.create({
+          name: name,
+          project: project,
+          tier: tier,
+          email: email,
+          paymentId: paymentId,
+        });
 
-    const apiKey = await ApiKey.create({
-      name: name,
-      project: project,
-      tier: tier,
-      email: email,
-      apiKey: Key,
-    });
+        return apiKey;
+      }
+    }
 
-    return apiKey;
+
+
   },
   async getAPIKey(apiKey) {
     // Get the API Key
@@ -103,6 +133,21 @@ module.exports = {
 
     return apiKeyFound;
   },
+
+  async getByPaymentId(paymentId) {
+    // Get the API Key
+
+    const apiKeyFound = await ApiKey.find({
+      paymentId: paymentId,
+    });
+
+    if (!apiKeyFound) {
+      return [];
+    }
+
+    return apiKeyFound;
+  },
+
   async getAPIKeysByProject(project) {
     // Get the API Keys
     //If the project is not found, return a array with no api keys

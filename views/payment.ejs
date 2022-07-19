@@ -60,7 +60,12 @@
                             <h3 class="title-fontfamily">Pay via:</h3>
 
 
-                            <div id="paypal-button-container-P-8XX6641624574580HMLI7XJI"></div>
+                            <!-- Make a button for buy subscription -->
+
+                            <a class="btn-large waves-effect waves-light blue darken-1" href="<%= protocol %>://<%= host %>/buy?price=Basic&email=<%= email %>&name=<%= name %>&project=<%= typeOfProject %>">
+                                <i class="material-icons left">payment</i> 
+                                <span>PayPal</span>
+                            </a>
 
                         </div>
                     </div>
@@ -96,7 +101,6 @@
                             <h3 class="title-fontfamily">Pay via:</h3>
 
 
-                            <div id="paypal-button-container-P-55L236433C162521VMLI57CA"></div>
 
 
                         </div>
@@ -120,45 +124,6 @@
 
 
     <%- include('partials/footer.ejs') %>
-
-    <script
-        src="https://www.paypal.com/sdk/js?client-id=AV4uKSzE-p7ASividM5lkXk_uoI0O1CrkM_R1mqZ4Rhe4St2VNirg_RebANdXmeLKdlHXwNRttq6v6eY&vault=true&intent=subscription"
-        data-sdk-integration-source="button-factory"></script>
-    <script>
-        paypal.Buttons({
-            style: {
-                shape: 'pill',
-                color: 'gold',
-                layout: 'vertical',
-                label: 'subscribe'
-            },
-            createSubscription: function (data, actions) {
-                return actions.subscription.create({
-                    /* Creates the subscription */
-                    plan_id: 'P-8XX6641624574580HMLI7XJI'
-                });
-            },
-            onApprove: function (data, actions) {
-                //Make a call to your server to create a API Key and redirect the user to /thanks.
-
-                $.ajax({
-                    url: '/api/payment/paypal',
-                    type: 'POST',
-                    data: {
-                        'paymentId': data.paymentToken,
-                        'payerId': data.payerID,
-                        'price': '<%= price %>',
-                        'email': '<%= email %>',
-                        'name': '<%= name %>',
-                        'typeOfProject': '<%= description %>'
-                    },
-                    success: function (data) {
-                        window.location.href = '/thanks';
-                    }
-                });
-            }
-        }).render('#paypal-button-container-P-8XX6641624574580HMLI7XJI'); // Renders the PayPal button
-    </script>
 
     <script src="js/apikey.js"></script>
 
