@@ -10,12 +10,13 @@ require("@babel/core").transform("code", {
   presets: ["@babel/preset-env"],
 });
 
+
 //Make __basedir available globally
 global.__basedir = __dirname;
 
 //Change the X-Powered-By header and set Favicon
 app.use(function (req, res, next) {
-  res.setHeader("X-Powered-By", "MDCDEV, Discord: https://discord.gg/5UyuwbNu8j");
+  res.setHeader("X-Powered-By", "MDCDEV, Discord: https://discord.gg/dae");
   res.setHeader("X-Video", "https://www.youtube.com/watch?v=BTJ7AoyT4Qw");
   res.setHeader("X-Que", "So");
   next();
@@ -63,5 +64,6 @@ app.use(function (err, req, res, next) {
     error_code: err.status
   });
 });
+
 
 module.exports = app;
