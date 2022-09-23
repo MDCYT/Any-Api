@@ -6,12 +6,11 @@ const rateLimit = require("express-rate-limit");
 const {
   join
 } = require("path");
+const followRedirects = require('follow-redirects-fast');
 
 const {
   PhishingDomains
 } = require(join(__basedir, "utils", "db"));
-
-const followRedirects = require('follow-redirects-fast');
 
 const limiter = rateLimit({
   windowMs: 1 * 60 * 1000, // 1 minute
@@ -48,7 +47,6 @@ router.get("/api/v1/is_phishing", limiter, async function (req, res, next) {
     let {
       domain
     } = req.query;
-
 
     if (!domain) {
       return res.status(400).json({
@@ -111,27 +109,18 @@ router.get("/api/v1/is_phishing", limiter, async function (req, res, next) {
     // Check if the message contains a phishing link
     // PhishingLinks have a property called "domains", which is an array of domains
     // If the message contains a phishing link, the bot will send a message to the mod channel
-    let phishingLink = false;
-
     for await (let susDomain of susDomainsArgs) {
       const phishingDomain = await PhishingDomains.getPhishingDomain({
         domain: susDomain,
       });
 
       if (phishingDomain) {
-        phishingLink = true;
-        break;
+        return res.status(200).json({
+          error: "Domain is a phishing domain",
+          status: 200,
+          isPhishing: true,
+        });
       }
-
-    }
-
-
-    if (phishingLink) {
-      return res.status(200).json({
-        error: "Domain is a phishing domain",
-        status: 200,
-        isPhishing: true,
-      });
     }
 
     return res.status(404).json({
@@ -142,10 +131,11 @@ router.get("/api/v1/is_phishing", limiter, async function (req, res, next) {
 
   } catch (err) {
 
-    res.status(500).json({
+    return res.status(500).json({
       message: "Internal Server Error",
       status: 500,
     });
+
   }
 
 });
