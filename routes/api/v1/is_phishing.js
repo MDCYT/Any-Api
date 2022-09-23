@@ -110,8 +110,9 @@ router.get("/api/v1/is_phishing", limiter, async function (req, res, next) {
     // PhishingLinks have a property called "domains", which is an array of domains
     // If the message contains a phishing link, the bot will send a message to the mod channel
     for await (let susDomain of susDomainsArgs) {
+
       const phishingDomain = await PhishingDomains.getPhishingDomain({
-        domain: susDomain,
+        domain: susDomain.toLowerCase()
       });
 
       if (phishingDomain) {
