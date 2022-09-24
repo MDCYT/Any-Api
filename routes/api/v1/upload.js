@@ -5,8 +5,12 @@ const https = require("https");
 const fs = require("fs");
 const path = require("path");
 const rateLimit = require("express-rate-limit");
-const { join } = require("path");
-const { APIKeys } = require(join(__basedir, "utils", "db"));
+const {
+  join
+} = require("path");
+const {
+  APIKeys
+} = require(join(__basedir, "utils", "db"));
 let isValid = true;
 
 const limiter = rateLimit({
@@ -63,7 +67,11 @@ router.post("/api/v1/upload", limiter, function (req, res, next) {
       return;
     }
 
-    const { name, url, id } = req.query;
+    const {
+      name,
+      url,
+      id
+    } = req.query;
 
     if (!name || !url || !id) {
       res.json({

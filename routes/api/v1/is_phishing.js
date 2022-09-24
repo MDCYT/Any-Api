@@ -116,7 +116,7 @@ router.get("/api/v1/is_phishing", limiter, async function (req, res, next) {
           domain: susDomain
         })) {
         return res.status(200).json({
-          error: "Domain is a phishing domain",
+          message: "Domain is a phishing domain",
           status: 200,
           isPhishing: true,
         });
@@ -126,16 +126,16 @@ router.get("/api/v1/is_phishing", limiter, async function (req, res, next) {
           domain: susDomain.toLowerCase()
         })) {
         return res.status(200).json({
-          error: "Domain is a phishing domain",
+          message: "Domain is a phishing domain",
           status: 200,
           isPhishing: true,
         });
       }
     }
 
-    return res.status(404).json({
-      error: "Domain is not a phishing domain",
-      status: 404,
+    return res.status(200).json({
+      message: "Domain is not a phishing domain",
+      status: 200,
       isPhishing: false,
     });
 
@@ -143,7 +143,7 @@ router.get("/api/v1/is_phishing", limiter, async function (req, res, next) {
 
     return res.status(500).json({
       message: "Internal Server Error",
-      status: 500,
+      status: 500
     });
 
   }
