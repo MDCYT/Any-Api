@@ -19,6 +19,7 @@ app.use(function (req, res, next) {
   res.setHeader("X-Powered-By", "MDCDEV, Discord: https://discord.gg/dae");
   res.setHeader("X-Video", "https://www.youtube.com/watch?v=BTJ7AoyT4Qw");
   res.setHeader("X-Que", "So");
+  res.setHeader("Access-Control-Allow-Origin", "*");
   next();
 })
 

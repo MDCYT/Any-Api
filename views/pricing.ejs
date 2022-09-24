@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('partials/header.ejs') %>
+
+
+<body>
+
+    <%- include('partials/navbar.ejs') %>
+
+    <div class="section no-pad-bot" id="index-banner">
+        <div class="container">
+
+        </div>
+        <br><br>
+        <h1 class="header center title">
+            ʻ<%= title %>ʼ
+        </h1>
+        <div class="row center">
+            <h5 class="header col s12 light">
+                <%= description %>
+        </div>
+        <br>
+        <hr style="width: 50%;">
+
+    </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <!-- Make a table with the pricing information -->
+                                <table class="table table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Plan</th>
+                                            <th>Price</th>
+                                            <th>Animal EndPoints Requests</th>
+                                            <th>Anime EndPoints Requests</th>
+                                            <th>Utils EndPoints Requests</th>
+                                            <th>Upload EndPoint Requests</th>
+                                            <th>Support</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Free</td>
+                                            <td>$0</td>
+                                            <td>30/min</td>
+                                            <td>30/min</td>
+                                            <td>200/min</td>
+                                            <td>❌</td>
+                                            <td>Email or Discord</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Basic</td>
+                                            <td>$1.99/month</td>
+                                            <td>120/min</td>
+                                            <td>120/min</td>
+                                            <td>2000/min</td>
+                                            <td>15/min</td>
+                                            <td>Email or Discord</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Pro</td>
+                                            <td>$6.99/month</td>
+                                            <td>360/min</td>
+                                            <td>360/min</td>
+                                            <td>20000/min</td>
+                                            <td>120/min</td>
+                                            <td>Email or Discord</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Enterprise</td>
+                                            <td>$14.99/month</td>
+                                            <td>1200/min</td>
+                                            <td>1200/min</td>
+                                            <td>200000/min</td>
+                                            <td>360/min</td>
+                                            <td>Email or Discord</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">
+                                                <h3>How to get a key?</h3>
+                                                <p>Go to the <a href="/get-apikey">Get APIKey</a> page and click on the "Get a key" button.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include('partials/footer.ejs') %>
+
+</body>
+
+
+
+
+</html>
