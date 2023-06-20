@@ -11,7 +11,7 @@ require("@babel/core").transform("code", {
 });
 
 
-//Make __basedir available globally
+//Make __basedir available globally 
 global.__basedir = __dirname;
 
 //Change the X-Powered-By header and set Favicon
