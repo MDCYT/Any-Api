@@ -9,7 +9,7 @@ router.get("/", function (req, res, next) {
     description: "Any Api, the best API for your needs",
     keywords: "Any Api, API, API's, API's for your needs",
     host: req.headers.host,
-    protocol: req.protocol,
+    protocol: "https",
   });
 });
 
